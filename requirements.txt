@@ -1,4 +1,5 @@
-# Dependencias directas del proyecto (mismas versiones que el .venv de PyCharm).
-# El resto de paquetes (numpy, huggingface_hub, tokenizers, etc.) se instalan solos.
-transformers==5.22.1
-torch==2.15.0
+google-adk
+python-dotenv
+pandas
+fastapi
+uvicorn
