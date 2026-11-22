@@ -125,7 +125,7 @@ def responder(req: PreguntaRequest):
 # --- INTERFAZ WEB COMPLETA ---
 @app.get("/", response_class=HTMLResponse)
 def inicio():
-    return """
+    return r"""
     <!DOCTYPE html>
     <html lang="es">
     <head>
