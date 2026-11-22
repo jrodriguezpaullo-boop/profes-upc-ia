@@ -38,9 +38,9 @@
 <body>
     <div class="card" id="auth-card" style="max-width: 460px; margin-top: 40px;">
         <h2>Calificación de Profes UPC</h2>
-        <div class="tabs" style="margin-bottom: 0;">
-            <button type="button" class="tab" id="tab-login" onclick="mostrarAuth('login')">Iniciar Sesión</button>
-            <button type="button" class="tab" id="tab-reg" onclick="mostrarAuth('reg')">Registrarse</button>
+                <div class="tabs" style="margin-bottom: 0;">
+            <button type="button" class="tab" id="tab-login" onclick="document.getElementById('form-login').style.display='block'; document.getElementById('form-reg').style.display='none'; document.getElementById('auth-msg').innerText=''; this.classList.add('active'); document.getElementById('tab-reg').classList.remove('active');">Iniciar Sesión</button>
+            <button type="button" class="tab" id="tab-reg" onclick="document.getElementById('form-login').style.display='none'; document.getElementById('form-reg').style.display='block'; document.getElementById('auth-msg').innerText=''; this.classList.add('active'); document.getElementById('tab-login').classList.remove('active');">Registrarse</button>
         </div>
 
         <form id="form-login" style="display:none; margin-top: 18px;" onsubmit="hacerLogin(event)">
