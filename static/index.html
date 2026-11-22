@@ -9,7 +9,8 @@
         .card { background: white; width: 100%; max-width: 720px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 28px; }
         h2 { color: #d50000; margin-top: 0; text-align: center; }
         .tabs { display: flex; gap: 8px; margin-bottom: 18px; }
-        .tab { flex: 1; padding: 10px; border: 1px solid #ddd; background: #f9f9f9; cursor: pointer; border-radius: 6px; font-weight: bold; font-size: 14px; }
+        .tab { flex: 1; padding: 12px; border: 1px solid #ddd; background: #f9f9f9; cursor: pointer; border-radius: 6px; font-weight: bold; font-size: 14px; transition: 0.2s; }
+        .tab:hover { background: #ececec; }
         .tab.active { background: #d50000; color: white; border-color: #d50000; }
         .form-group { margin-bottom: 12px; }
         input, select, textarea { width: 100%; box-sizing: border-box; padding: 11px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; font-family: inherit; }
@@ -37,18 +38,18 @@
 <body>
     <div class="card" id="auth-card" style="max-width: 460px; margin-top: 40px;">
         <h2>Calificación de Profes UPC</h2>
-        <div class="tabs">
-            <button type="button" class="tab active" id="tab-login" onclick="mostrarAuth('login')">Iniciar Sesión</button>
+        <div class="tabs" style="margin-bottom: 0;">
+            <button type="button" class="tab" id="tab-login" onclick="mostrarAuth('login')">Iniciar Sesión</button>
             <button type="button" class="tab" id="tab-reg" onclick="mostrarAuth('reg')">Registrarse</button>
         </div>
 
-        <form id="form-login" onsubmit="hacerLogin(event)">
+        <form id="form-login" style="display:none; margin-top: 18px;" onsubmit="hacerLogin(event)">
             <div class="form-group"><input type="email" id="login-correo" placeholder="Correo institucional (ej. u2023@upc.edu.pe)" required></div>
             <div class="form-group"><input type="password" id="login-pass" placeholder="Contraseña" required></div>
             <button type="submit" class="primary">Ingresar a la Plataforma</button>
         </form>
 
-        <form id="form-reg" style="display:none;" onsubmit="hacerRegistro(event)">
+        <form id="form-reg" style="display:none; margin-top: 18px;" onsubmit="hacerRegistro(event)">
             <div class="form-group"><input type="text" id="reg-nombre" placeholder="Tu nombre completo" required></div>
             <div class="form-group"><input type="email" id="reg-correo" placeholder="Correo institucional" required></div>
             <div class="form-group"><input type="password" id="reg-pass" placeholder="Crea una contraseña" required></div>
@@ -154,8 +155,8 @@
         }
 
         async function hacerLogin(e) {
-            e.preventDefault();
-            var correo = document.getElementById('login-correo').value;
+e.preventDefault();
+var correo = document.getElementById('login-correo').value;
 var contrasena = document.getElementById('login-pass').value;
 var msg = document.getElementById('auth-msg');
 msg.className = 'success';
@@ -183,6 +184,10 @@ document.getElementById('app-card').style.display = 'none';
 document.getElementById('auth-card').style.display = 'block';
 document.getElementById('login-pass').value = '';
 document.getElementById('auth-msg').innerText = '';
+document.getElementById('form-login').style.display = 'none';
+document.getElementById('form-reg').style.display = 'none';
+document.getElementById('tab-login').classList.remove('active');
+document.getElementById('tab-reg').classList.remove('active');
 }
 function cambiarSeccion(sec) {
 ['lista', 'opinar', 'ia'].forEach(function(s) {
@@ -242,7 +247,6 @@ document.getElementById('input-comentario').value = '';
 cargarDocentes();
 setTimeout(function() { msg.innerText = ''; cambiarSeccion('lista'); }, 1200);
 }
-function preguntar(txt) { document.getElementById('texto').value = txt; enviarChat(); }
 async function enviarChat() {
 var input = document.getElementById('texto');
 var chat = document.getElementById('chat');
@@ -259,3 +263,4 @@ var data = await res.json();
 chat.innerHTML += 'IA: ' + data.respuesta + '';
 chat.scrollTop = chat.scrollHeight;
 }
+function preguntar(txt) { document.getElementById('texto').value = txt; enviarChat(); }
