@@ -120,4 +120,7 @@ def responder(req: PreguntaRequest):
 
 @app.get("/")
 def inicio():
-    return FileResponse("static/index.html")
+    return FileResponse(
+        "static/index.html",
+        headers={"Cache-Control": "no-store, no-cache, must-revalidate, max-age=0"}
+    )
