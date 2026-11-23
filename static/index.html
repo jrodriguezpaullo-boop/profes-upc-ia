@@ -40,22 +40,22 @@
 </head>
 <body>
     <div class="card" id="auth-card" style="max-width: 460px; margin-top: 40px;">
-        <h2>Calificacion de Profes UPC</h2>
+        <h2>Calificación de Profes UPC</h2>
         <div class="tabs" style="margin-bottom: 0;">
-            <button type="button" class="tab" id="tab-login" onclick="document.getElementById('form-login').style.display='block'; document.getElementById('form-reg').style.display='none'; document.getElementById('auth-msg').innerText=''; this.classList.add('active'); document.getElementById('tab-reg').classList.remove('active');">Iniciar Sesion</button>
-            <button type="button" class="tab" id="tab-reg" onclick="document.getElementById('form-login').style.display='none'; document.getElementById('form-reg').style.display='block'; document.getElementById('auth-msg').innerText=''; this.classList.add('active'); document.getElementById('tab-login').classList.remove('active');">Registrarse</button>
+            <button type="button" class="tab" id="tab-login" onclick="mostrarAuth('login')">Iniciar Sesión</button>
+            <button type="button" class="tab" id="tab-reg" onclick="mostrarAuth('reg')">Registrarse</button>
         </div>
 
         <div id="form-login" style="display:none; margin-top: 18px;">
             <div class="form-group"><input type="email" id="login-correo" placeholder="Correo institucional (ej. u2023@upc.edu.pe)"></div>
-            <div class="form-group"><input type="password" id="login-pass" placeholder="Contrasena"></div>
+            <div class="form-group"><input type="password" id="login-pass" placeholder="Contraseña"></div>
             <button type="button" class="primary" onclick="hacerLogin()">Ingresar a la Plataforma</button>
         </div>
 
         <div id="form-reg" style="display:none; margin-top: 18px;">
             <div class="form-group"><input type="text" id="reg-nombre" placeholder="Tu nombre completo"></div>
             <div class="form-group"><input type="email" id="reg-correo" placeholder="Correo institucional"></div>
-            <div class="form-group"><input type="password" id="reg-pass" placeholder="Crea una contrasena"></div>
+            <div class="form-group"><input type="password" id="reg-pass" placeholder="Crea una contraseña"></div>
             <button type="button" class="primary" onclick="hacerRegistro()">Crear Cuenta</button>
         </div>
         <div id="auth-msg" class="error"></div>
@@ -64,21 +64,21 @@
     <div class="card" id="app-card" style="display:none;">
         <div class="topbar">
             <span id="saludo-usuario" style="font-weight:bold; color:#333;">Estudiante</span>
-            <button type="button" class="logout" onclick="cerrarSesion()">6. Cerrar sesion</button>
+            <button type="button" class="logout" onclick="cerrarSesion()">6. Cerrar sesión</button>
         </div>
-        <h2>=== PLATAFORMA DE CALIFICACION DE DOCENTES UPC ===</h2>
+        <h2>=== PLATAFORMA DE CALIFICACIÓN DE DOCENTES UPC ===</h2>
 
         <div id="sec-menu">
             <button type="button" class="menu-btn" onclick="abrirOpcion('lista', false)"><span>1. Ver lista de docentes y sus cursos</span> <span>-></span></button>
             <button type="button" class="menu-btn" onclick="abrirOpcion('lista', true)"><span>2. Buscar docente por nombre o curso</span> <span>-></span></button>
-            <button type="button" class="menu-btn" onclick="abrirOpcion('lista', false)"><span>3. Ver opiniones y calificacion de un docente</span> <span>-></span></button>
-            <button type="button" class="menu-btn" onclick="abrirOpcion('opinar', false)"><span>4. Publicar opinion sobre un docente</span> <span>-></span></button>
+            <button type="button" class="menu-btn" onclick="abrirOpcion('lista', false)"><span>3. Ver opiniones y calificación de un docente</span> <span>-></span></button>
+            <button type="button" class="menu-btn" onclick="abrirOpcion('opinar', false)"><span>4. Publicar opinión sobre un docente</span> <span>-></span></button>
             <button type="button" class="menu-btn ia" onclick="abrirOpcion('ia', false)"><span>5. Consultar al Asistente IA (Top 5 y Recomendaciones)</span> <span>IA</span></button>
-            <button type="button" class="menu-btn" onclick="cerrarSesion()"><span>6. Cerrar sesion</span> <span>X</span></button>
+            <button type="button" class="menu-btn" onclick="cerrarSesion()"><span>6. Cerrar sesión</span> <span>X</span></button>
         </div>
 
         <div id="sec-lista" style="display:none;">
-            <button type="button" class="back-btn" onclick="volverAlMenu()">Volver al Menu Principal</button>
+            <button type="button" class="back-btn" onclick="volverAlMenu()">Volver al Menú Principal</button>
             <div class="form-group">
                 <input type="text" id="buscador" placeholder="Escribe el nombre del profesor o curso..." onkeyup="filtrarDocentes()">
             </div>
@@ -86,13 +86,13 @@
         </div>
 
         <div id="sec-opinar" style="display:none;">
-            <button type="button" class="back-btn" onclick="volverAlMenu()">Volver al Menu Principal</button>
+            <button type="button" class="back-btn" onclick="volverAlMenu()">Volver al Menú Principal</button>
             <div class="form-group">
                 <label style="font-weight:bold; font-size:14px;">Selecciona al docente:</label>
                 <select id="select-docente"></select>
             </div>
             <div class="form-group">
-                <label style="font-weight:bold; font-size:14px;">Calificacion (1 a 5):</label>
+                <label style="font-weight:bold; font-size:14px;">Calificación (1 a 5):</label>
                 <select id="select-puntaje">
                     <option value="5">5 - Excelente</option>
                     <option value="4">4 - Muy bueno</option>
@@ -102,171 +102,38 @@
                 </select>
             </div>
             <div class="form-group">
-                <label style="font-weight:bold; font-size:14px;">Tu comentario sobre su clase (Anonimo):</label>
-                <textarea id="input-comentario" rows="3" placeholder="Que tal explica? Como evalua?"></textarea>
+                <label style="font-weight:bold; font-size:14px;">Tu comentario sobre su clase (Anónimo):</label>
+                <textarea id="input-comentario" rows="3" placeholder="¿Qué tal explica? ¿Cómo evalúa?"></textarea>
             </div>
-            <button type="button" class="primary" onclick="enviarOpinion()">Publicar Opinion</button>
+            <button type="button" class="primary" onclick="enviarOpinion()">Publicar Opinión</button>
             <div id="op-msg" class="success"></div>
         </div>
 
         <div id="sec-ia" style="display:none;">
-            <button type="button" class="back-btn" onclick="volverAlMenu()">Volver al Menu Principal</button>
+            <button type="button" class="back-btn" onclick="volverAlMenu()">Volver al Menú Principal</button>
             <div class="chips">
-                <button type="button" class="chip" onclick="preguntar('Cual es el Top 5 de mejores profesores?')">Top 5 mejores profes</button>
-                <button type="button" class="chip" onclick="preguntar('Quien es el mejor profesor de Calculo?')">Mejor de Calculo</button>
-                <button type="button" class="chip" onclick="preguntar('Quien ensena mejor Algoritmos?')">Mejor de Algoritmos</button>
+                <button type="button" class="chip" onclick="preguntar('¿Cuál es el Top 5 de mejores profesores?')">Top 5 mejores profes</button>
+                <button type="button" class="chip" onclick="preguntar('¿Quién es el mejor profesor de Cálculo?')">Mejor de Cálculo</button>
+                <button type="button" class="chip" onclick="preguntar('¿Quién enseña mejor Algoritmos?')">Mejor de Algoritmos</button>
             </div>
             <div id="chat">
-                <div class="msg bot">Hola! Soy el asistente IA de Profes UPC. Preguntame por el Top 5 general o por el mejor profesor de cualquier curso.</div>
+                <div class="msg bot">¡Hola! Soy el asistente IA de Profes UPC. Pregúntame por el Top 5 general o por el mejor profesor de cualquier curso.</div>
             </div>
             <div class="row">
-                <input type="text" id="texto" placeholder="Escribe tu pregunta aqui..." onkeypress="if(event.key==='Enter') enviarChat()">
-Enviar
+                <input type="text" id="texto" placeholder="Escribe tu pregunta aquí..." onkeypress="if(event.key==='Enter') enviarChat()">
+                <button type="button" class="primary" style="width:auto; margin-top:0; padding:10px 18px;" onclick="enviarChat()">Enviar</button>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        var usuarioActual = {id: '1', nombre: ''};
+        var listaDocentesGlobal = [];
 
-var usuarioActual = {id: '1', nombre: ''};
-var listaDocentesGlobal = [];
-async function hacerRegistro() {
-var nombre = document.getElementById('reg-nombre').value;
-var correo = document.getElementById('reg-correo').value;
-var contrasena = document.getElementById('reg-pass').value;
-var msg = document.getElementById('auth-msg');
-msg.className = 'success';
-msg.innerText = 'Creando cuenta...';
-try {
-var res = await fetch('/registrar', {
-method: 'POST',
-headers: {'Content-Type': 'application/json'},
-body: JSON.stringify({nombre: nombre, correo: correo, contrasena: contrasena})
-});
-var data = await res.json();
-if (!res.ok) { msg.className = 'error'; msg.innerText = data.detail || 'Error al registrar'; return; }
-msg.className = 'success';
-msg.innerText = data.mensaje;
-setTimeout(function() {
-document.getElementById('tab-login').click();
-}, 1200);
-} catch (err) {
-msg.className = 'error';
-msg.innerText = 'Error de conexion con el servidor.';
+        function mostrarAuth(tipo) {
+            document.getElementById('auth-msg').textContent = '';
+            document.getElementById('tab-login').classList.toggle('active', tipo === 'login');
+document.getElementById('tab-reg').classList.toggle('active', tipo === 'reg');
+document.getElementById('form-login').style.display = tipo === 'login' ? 'block' : 'none';
+document.getElementById('form-reg').style.display = tipo === 'reg' ? 'block' : 'none';
 }
-}
-async function hacerLogin() {
-var correo = document.getElementById('login-correo').value;
-var contrasena = document.getElementById('login-pass').value;
-var msg = document.getElementById('auth-msg');
-msg.className = 'success';
-msg.innerText = 'Verificando...';
-try {
-var res = await fetch('/login', {
-method: 'POST',
-headers: {'Content-Type': 'application/json'},
-body: JSON.stringify({correo: correo, contrasena: contrasena})
-});
-var data = await res.json();
-if (!res.ok) { msg.className = 'error'; msg.innerText = data.detail || 'Correo o contrasena incorrectos'; return; }
-usuarioActual = data;
-document.getElementById('auth-card').style.display = 'none';
-document.getElementById('app-card').style.display = 'block';
-document.getElementById('saludo-usuario').innerText = 'Estudiante: ' + data.nombre;
-volverAlMenu();
-cargarDocentes();
-} catch (err) {
-msg.className = 'error';
-msg.innerText = 'Error de conexion con el servidor.';
-}
-}
-function cerrarSesion() {
-document.getElementById('app-card').style.display = 'none';
-document.getElementById('auth-card').style.display = 'block';
-document.getElementById('login-pass').value = '';
-document.getElementById('auth-msg').innerText = '';
-document.getElementById('form-login').style.display = 'none';
-document.getElementById('form-reg').style.display = 'none';
-document.getElementById('tab-login').classList.remove('active');
-document.getElementById('tab-reg').classList.remove('active');
-}
-function volverAlMenu() {
-document.getElementById('sec-menu').style.display = 'block';
-document.getElementById('sec-lista').style.display = 'none';
-document.getElementById('sec-opinar').style.display = 'none';
-document.getElementById('sec-ia').style.display = 'none';
-}
-function abrirOpcion(sec, enfocarBuscador) {
-document.getElementById('sec-menu').style.display = 'none';
-document.getElementById('sec-lista').style.display = sec === 'lista' ? 'block' : 'none';
-document.getElementById('sec-opinar').style.display = sec === 'opinar' ? 'block' : 'none';
-document.getElementById('sec-ia').style.display = sec === 'ia' ? 'block' : 'none';
-if (sec === 'lista') {
-cargarDocentes();
-if (enfocarBuscador) document.getElementById('buscador').focus();
-}
-}
-async function cargarDocentes() {
-var res = await fetch('/api/docentes');
-listaDocentesGlobal = await res.json();
-renderizarDocentes(listaDocentesGlobal);
-var select = document.getElementById('select-docente');
-select.innerHTML = listaDocentesGlobal.map(function(d) {
-return '' + d.nombre + ' (' + d.cursos.join(', ') + ')';
-}).join('');
-}
-function filtrarDocentes() {
-var q = document.getElementById('buscador').value.toLowerCase();
-var filtrados = listaDocentesGlobal.filter(function(d) {
-return d.nombre.toLowerCase().indexOf(q) !== -1 || d.cursos.some(function(c) { return c.toLowerCase().indexOf(q) !== -1; });
-});
-renderizarDocentes(filtrados);
-}
-function renderizarDocentes(lista) {
-var cont = document.getElementById('contenedor-docentes');
-if (!lista.length) { cont.innerHTML = 'No se encontraron docentes.'; return; }
-cont.innerHTML = lista.map(function(d) {
-var ops = d.opiniones.map(function(op) {
-return '' + op.puntaje + '/5 - "' + op.comentario + '"';
-}).join('');
-return '' +
-'' +
-'' + d.nombre + '' +
-'' + d.puntaje_general + ' / 5.0 (' + d.opiniones.length + ' resenas)' +
-'' +
-'Cursos: ' + d.cursos.join(', ') + '' +
-ops +
-'';
-}).join('');
-}
-async function enviarOpinion() {
-var docente_id = document.getElementById('select-docente').value;
-var puntaje = parseInt(document.getElementById('select-puntaje').value);
-var comentario = document.getElementById('input-comentario').value;
-var msg = document.getElementById('op-msg');
-var res = await fetch('/api/opiniones', {
-method: 'POST',
-headers: {'Content-Type': 'application/json'},
-body: JSON.stringify({estudiante_id: usuarioActual.id, docente_id: docente_id, puntaje: puntaje, comentario: comentario})
-});
-var data = await res.json();
-if (!res.ok) { msg.className = 'error'; msg.innerText = data.detail; return; }
-msg.className = 'success';
-msg.innerText = data.mensaje;
-document.getElementById('input-comentario').value = '';
-cargarDocentes();
-setTimeout(function() { msg.innerText = ''; volverAlMenu(); }, 1200);
-}
-async function enviarChat() {
-var input = document.getElementById('texto');
-var chat = document.getElementById('chat');
-var pregunta = input.value.trim();
-if (!pregunta) return;
-chat.innerHTML += 'Tu: ' + pregunta + '';
-input.value = '';
-var res = await fetch('/preguntar', {
-method: 'POST',
-headers: {'Content-Type': 'application/json'},
-body: JSON.stringify({pregunta: pregunta})
-});
-var data = await res.json();
-chat.innerHTML += 'IA: ' + data.respuesta + '';
-chat.scrollTop = chat.scrollHeight;
-}
-function preguntar(txt) { document.getElementById('texto').value = txt; enviarChat(); }
